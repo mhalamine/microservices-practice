@@ -1,15 +1,16 @@
+// index.js
+
 import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './App'; // Import your main App component
 
-const ProductList = ({ products, addToCart }) => {
-  return (
-    <div>
-      <h2>Products</h2>
-      <ul>
-        {/* Map through products and display them */}
-        {/* Each product should have a button to add it to the cart */}
-      </ul>
-    </div>
-  );
-};
+ReactDOM.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+  document.getElementById('root')
+);
 
-export default ProductList;
+// If you want to measure performance in your app, uncomment the line below
+// Learn more: https://bit.ly/CRA-vitals
+// reportWebVitals();
