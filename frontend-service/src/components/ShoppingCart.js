@@ -5,7 +5,11 @@ const ShoppingCart = ({ cart }) => {
     <div>
       <h2>Shopping Cart</h2>
       <ul>
-        {/* Map through cart items and display them */}
+        {cart.map((item) => (
+          <li key={item.id}>
+            {item.name} - ${item.price}
+          </li>
+        ))}
       </ul>
     </div>
   );

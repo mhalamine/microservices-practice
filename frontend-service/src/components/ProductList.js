@@ -1,12 +1,26 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
-const ProductList = ({ products, addToCart }) => {
+const ProductList = ({ addToCart }) => {
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    // Fetch products from the Product Service
+    fetch('http://localhost:3001/api/products')
+      .then((response) => response.json())
+      .then((data) => setProducts(data))
+      .catch((error) => console.error('Error fetching products:', error));
+  }, []);
+
   return (
     <div>
       <h2>Products</h2>
       <ul>
-        {/* Map through products and display them */}
-        {/* Each product should have a button to add it to the cart */}
+        {products.map((product) => (
+          <li key={product.id}>
+            {product.name} - ${product.price}{' '}
+            <button onClick={() => addToCart(product)}>Add to Cart</button>
+          </li>
+        ))}
       </ul>
     </div>
   );
