@@ -8,7 +8,7 @@ function App() {
 
   useEffect(() => {
     // Fetch data from your backend API (order-service)
-    axios.get('http://order-service:3001/api/products')
+    axios.get('http://localhost:3001/api/products')
       .then(response => {
         setProducts(response.data);
       })

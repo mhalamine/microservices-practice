@@ -5,7 +5,7 @@ const ProductList = ({ addToCart }) => {
 
   useEffect(() => {
     // Fetch products from the Product Service
-    fetch('http://order-service:3001/api/products')
+    fetch('http://localhost:3001/api/products')
       .then((response) => response.json())
       .then((data) => setProducts(data))
       .catch((error) => console.error('Error fetching products:', error));
