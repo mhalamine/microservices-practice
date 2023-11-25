@@ -6,6 +6,8 @@ services:
       context: ./product-service
     ports:
       - "3001:3001"
+    volumes:
+      - ./product-service:/usr/src/app
     depends_on:
       - database
 
@@ -14,18 +16,43 @@ services:
       context: ./order-service
     ports:
       - "3002:3002"
+    volumes:
+      - ./order-service:/usr/src/app
     depends_on:
       - database
+  
+  auth-service:
+    build:
+      context: ./auth-service
+    ports:
+      - "3003:3003"
+    volumes:
+      - ./auth-service:/usr/src/app
+    depends_on:
+      - database
+
+  admin-interface:
+    build:
+      context: ./admin-interface
+    ports:
+      - "3004:3004"
+    volumes:
+      - ./admin-interface:/usr/src/app
+    depends_on:
+      - product-service
+      - order-service
 
   frontend-service:
     build:
       context: ./frontend-service
     ports:
       - "3000:3000"
+    volumes:
+      - ./frontend-service:/usr/src/app
     depends_on:
       - product-service
       - order-service
-
+  
   database:
     image: "postgres:latest"
     environment:
