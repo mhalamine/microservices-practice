@@ -20,7 +20,7 @@ services:
       - ./order-service:/usr/src/app
     depends_on:
       - database
-  
+
   auth-service:
     build:
       context: ./auth-service
@@ -52,7 +52,23 @@ services:
     depends_on:
       - product-service
       - order-service
-  
+
+  redis-service:
+    build:
+      context: ./redis-service
+    ports:
+      - "3005:3005"
+    volumes:
+      - ./redis-service:/usr/src/app
+    depends_on:
+      - redis
+
+  redis:
+    image: "redis:latest"
+    restart: always
+    ports:
+      - "6379:6379"
+
   database:
     image: "postgres:latest"
     environment:
@@ -61,3 +77,16 @@ services:
       POSTGRES_PASSWORD: "password"
     ports:
       - "5432:5432"
+  
+  pgadmin:
+    image: dpage/pgadmin4
+    restart: always
+    ports:
+      - "8888:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "test@user.com"
+      PGADMIN_DEFAULT_PASSWORD: "Test@123"
+    volumes:
+      - ./pgadmin:/var/lib/pgadmin
+    depends_on:
+      - database
